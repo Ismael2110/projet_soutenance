@@ -16,7 +16,7 @@ from django.conf import settings
 
 from .models import Dossier
 
-from gestion_administratif import control_elements, TEXTAREA
+from educ_finance.constants import control_elements, TEXTAREA
 
 default_renderer = FormRenderer(
     form_css_classes="row",
@@ -36,5 +36,5 @@ class DossierForm(FormMixin, ModelForm):
 )
     class Meta:
         model = Dossier
-        fields = ["code"]
+        fields = ["enseignant","module"]
 

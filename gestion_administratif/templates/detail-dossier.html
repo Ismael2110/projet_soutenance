@@ -115,7 +115,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <strong class="card-title">
-                                    {% block card-title %}{{object.label}}{% endblock card-title %}
+                                    {% block card-title %}{{object.code}}{% endblock card-title %}
                                 </strong>
                             </div> 
                             
@@ -146,12 +146,12 @@
                                             <td>{{ object.code }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="table-light">Libéllé</th>
-                                            <td>{{ object.label }}</td>
+                                            <th class="table-light">Enseignant</th>
+                                            <td>{{ object.enseignant }}</td>
                                         </tr>
                                         <tr>
-                                            <th class="table-light">Description</th>
-                                            <td>{{ object.description }}</td>
+                                            <th class="table-light">Module</th>
+                                            <td>{{ object.module }}</td>
                                         </tr>
                                     </tbody>
                                 </table>

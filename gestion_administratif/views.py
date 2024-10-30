@@ -34,7 +34,9 @@ class DossierCreateView(CustomCreateView):
     success_url = reverse_lazy("gestion_administratif:dossier-list")
 
 
+
 class DossierUpdateView(CustomUpdateView):
+    
     model = Dossier
     name = "dossier"
     template_name = "update-dossier.html"
@@ -47,12 +49,10 @@ class DossierDetailView(CustomDetailView):
     name = "dossier"
     template_name = "detail-dossier.html"
     success_url = reverse_lazy("gestion_administratif:dossier-list")
-    
-    
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["card_title"] = "Détails de l'UFR"
+        context["card_title"] = "Détails du Dossier"
         context["update_url"] = "gestion_administratif:dossier-update"
         context["delete_url"] = "gestion_administratif:dossier-delete"
         context["list_url"] = "gestion_administratif:dossier-list"

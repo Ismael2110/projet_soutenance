@@ -24,5 +24,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("import-export/", include("ie_app.urls")),
     path("parameter/", include("parameter.urls")),
+    path("gestion_administratif/", include("gestion_administratif.urls")),
     
 ]

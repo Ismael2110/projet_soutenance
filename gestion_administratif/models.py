@@ -1,49 +1,49 @@
 from django.db import models
+from educ_finance.constants import MIN_LENGTH, MEDIUM_LENGTH, BIG_LENGTH
+
+import uuid
+from django.db import models
 
 class Dossier(models.Model):
-    # Liaison au modèle Enseignant
+    # Génération automatique d'un code unique pour chaque dossier
+    code = models.CharField(
+        max_length=10,  # Ajustez la longueur si nécessaire
+        unique=True,
+        blank=True,
+        help_text="Code unique permettant d'identifier cet élément"
+    )
+
     enseignant = models.ForeignKey(
-        'parameter.Enseignant',  # nom de la classe référencée
-        on_delete=models.CASCADE,  # Suppression en cascade du dossier si l'enseignant est supprimé
-        related_name="dossiers",  # Nom de la relation inverse
+        'parameter.Enseignant', 
+        on_delete=models.CASCADE,  
+        related_name="dossiers",  
         verbose_name="Enseignant associé",
-        help_text="Enseignant associé à ce dossier"
+        help_text="Enseignant associé à ce dossier",
+        null=True
     )
 
-    # Informations professionnelles spécifiques au dossier
-    # specialite = models.CharField(max_length=100, help_text="Spécialité de l'enseignant dans ce dossier (ex. Mathématiques appliquées)")
-    # diplome = models.CharField(max_length=100, help_text="Dernier diplôme obtenu par l'enseignant")
-    # date_embauche = models.DateField(help_text="Date d'embauche de l'enseignant dans l'établissement")
-
-    # Statut et cours
     module = models.ForeignKey(
-        "parameter.Module", 
+        "parameter.Module",
         on_delete=models.CASCADE,
-        related_name="dossiers", 
+        related_name="dossiers",
         verbose_name="Module associé",
-        help_text="Cours enseignés par l'enseignant dans ce dossier"
+        help_text="Module associé à ce dossier",
+        null=True
     )
-        
-    
-    # statut = models.CharField(
-    #     max_length=10,
-    #     choices=[('titulaire', 'Titulaire'), ('vacataire', 'Vacataire')],
-    #     default='titulaire',
-    #     help_text="Statut de l'enseignant dans l'établissement"
-    # )
 
-    # Autres informations
-    # date_ajout = models.DateTimeField(auto_now_add=True, help_text="Date d'ajout du dossier")
-    # date_modification = models.DateTimeField(auto_now=True, help_text="Date de dernière modification du dossier")
+    # Méthode save() pour générer un code unique avant la sauvegarde
+    def save(self, *args, **kwargs):
+        if not self.code:
+            self.code = self.generate_unique_code()
+        super(Dossier, self).save(*args, **kwargs)
 
-    # def __str__(self):
-    #     return f"Dossier de {self.enseignant.prenom} {self.enseignant.nom} - {self.specialite}"
+    # Génération du code unique
+    def generate_unique_code(self):
+        # Utilisation de UUID pour générer un code de 8 caractères (par exemple)
+        unique_code = uuid.uuid4().hex[:8].upper()
+        while Dossier.objects.filter(code=unique_code).exists():
+            unique_code = uuid.uuid4().hex[:8].upper()  # Génère un nouveau code si le code existe déjà
+        return unique_code
 
-# class Cours(models.Model):
-#     # Informations sur les cours
-#     nom = models.CharField(max_length=100, help_text="Nom du cours (ex. Mathématiques)")
-#     description = models.TextField(blank=True, help_text="Description du cours")
-#     niveau = models.CharField(max_length=50, help_text="Niveau du cours (ex. Seconde, Première)")
-
-#     def __str__(self):
-#         return self.nom
+    def __str__(self):
+        return f"Dossier {self.code} pour {self.enseignant}"
