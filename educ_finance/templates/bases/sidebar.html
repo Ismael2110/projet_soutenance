@@ -1,0 +1,63 @@
+{% load icon %}
+<aside class="main-sidebar hidden-print">
+    <section class="sidebar" id="sidebar-scroll">
+        <!-- Sidebar Menu-->
+        <ul class="sidebar-menu">
+            <li class="active treeview">
+                <a class="waves-effect waves-dark" href="{% url 'index-view' %}">
+                    <i class="icon-speedometer">{% icon "book" class="css-class" %}</i><span> Tableau de Bord</span>
+                </a>                
+            </li>
+           
+            <li class="treeview">
+                <a class="waves-effect waves-dark" href="#!">
+                    {% icon "home" class="css-class" %}<span> Gestion Administratif</span>
+                    <i class="icon-arrow-down"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a class="waves-effect waves-dark" href="{% url 'gestion_administratif:dossier-list' %}"> Liste des Dossiers</a></li>
+                    <li><a class="waves-effect waves-dark" href="#"> Historique</a></li>
+                    <li><a class="waves-effect waves-dark" href="#"> Statut des Dossiers</a></li>
+                    <li><a class="waves-effect waves-dark" href="#"> Rapport Académique</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a class="waves-effect waves-dark" href="#!">
+                    {% icon "credit-card" class="css-class" %}<span> Gestion Financière</span>
+                    <i class="icon-arrow-down"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a class="waves-effect waves-dark" href="#"> Gérer Paiement</a></li>
+                    <li><a class="waves-effect waves-dark" href="#"> Historique</a></li>
+                    <li><a class="waves-effect waves-dark" href="#"> Rapport Financier</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a class="waves-effect waves-dark" href="#!">
+                    <i class="icon-book-open">{% icon "settings" class="css-class" %}</i><span> Paramètres</span>
+                    <i class="icon-arrow-down"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a class="waves-effect waves-dark" href="{% url 'parameter:ufr-list' %}"> Liste des Ufrs</a></li>
+                    <li><a class="waves-effect waves-dark" href="{% url 'parameter:departement-list'%}"> Liste des Départements</a></li>
+                    <li><a class="waves-effect waves-dark" href="{% url 'parameter:filiere-list'%}"> Liste des Filières</a></li>
+                    <li><a class="waves-effect waves-dark" href="{% url 'parameter:module-list'%}"> Liste des Modules</a></li>
+                    <li><a class="waves-effect waves-dark" href="{% url 'parameter:enseignant-list'%}"> Liste des Enseignants</a></li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a class="waves-effect waves-dark" href="#!">
+                    {% icon "users" class="css-class" %}<span>Gestion d'utilisateurs</span>
+                    <i class="icon-arrow-down"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a class="waves-effect waves-dark" href="#" target="_blank"> Les utilisateurs</a></li>
+                    <li><a class="waves-effect waves-dark" href="#"> Droit d'accès</a></li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+</aside>
