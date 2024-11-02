@@ -1,17 +1,50 @@
-{% extends "list-style.html" %}
+{% extends "list.html" %}
 {% load icon %}
-
 {% load static %}
-
 
 {% block table-headers %}
 <th>Code</th>
 <th>Enseignant</th>
 <th>Module</th>
+<th>Statut</th> {# Ajout de la colonne Statut #}
 {% endblock table-headers %}
 
 {% block table-rows %}
-<td>{{object.code}}</td>
-<td>{{object.enseignant}}</td>
-<td>{{object.module}}</td>
+<td>{{ object.code }}</td>
+<td>{{ object.enseignant }}</td>
+<td>{{ object.module }}</td>
+<td>
+    {% if object.is_valided == 1 %}
+        <span style="color: green;">Validé</span>
+    {% elif object.is_valided == 0 %}
+        <span style="color: red;">Non validé</span>
+    {% else %}
+        <span style="color: orange;">En cours</span>
+    {% endif %}
+</td>
+
 {% endblock table-rows %}
+
+{% block other-options %}
+    <!-- Bouton "Voir les détails" toujours affiché -->
+    <a href="{% url info_url object.slug|default:object.id %}" class="icon-info me-2" 
+       data-bs-toggle="tooltip" title="Voir les détails" data-bs-container="body" data-bs-placement="top" 
+       style="border: none; background: none; font-size: 24px; color: #007bff; transition: color 0.3s;">
+        {% icon "info" %}
+    </a>
+
+    <!-- Affiche les boutons "Modifier" et "Supprimer" seulement si le statut est "En cours" -->
+    {% if object.is_valided is None %}
+        <a href="{% url update_url object.slug|default:object.id %}" class="icon-success me-2" 
+           data-bs-toggle="tooltip" title="Modifier" data-bs-container="body" data-bs-placement="top" 
+           style="border: none; background: none; font-size: 24px; color: #28a745; transition: color 0.3s;">
+            {% icon "edit" %}
+        </a>
+
+        <a href="{% url delete_url object.slug|default:object.id %}" class="icon-danger" 
+           data-bs-toggle="tooltip" title="Supprimer" data-bs-container="body" data-bs-placement="top" 
+           style="border: none; background: none; font-size: 24px; color: #dc3545; transition: color 0.3s;">
+            {% icon "trash" %}
+        </a>
+    {% endif %}
+{% endblock other-options %}

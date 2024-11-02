@@ -4,9 +4,12 @@ from . import views
 app_name = "gestion_administratif"
 
 urlpatterns = [
-    path('parameters/dossiers/', views.DossierListView.as_view(), name='dossier-list'),
-    path('parameters/dossiers/create/', views.DossierCreateView.as_view(), name='dossier-create'),
-    path('parameters/dossiers/<int:pk>/', views.DossierDetailView.as_view(), name='dossier-detail'),
-    path('parameters/dossiers/<int:pk>/update/', views.DossierUpdateView.as_view(), name='dossier-update'),
-    path('parameters/dossiers/<int:pk>/delete/', views.DossierDeleteView.as_view(), name='dossier-delete'),
+    path('dossiers/', views.DossierListView.as_view(), name='dossier-list'),
+    path('dossiers/create/', views.DossierCreateView.as_view(), name='dossier-create'),
+    path('dossiers/<uuid:pk>/', views.DossierDetailView.as_view(), name='dossier-detail'),
+    path('dossiers/<uuid:pk>/update/', views.DossierUpdateView.as_view(), name='dossier-update'),
+    path('dossiers/<uuid:pk>/delete/', views.DossierDeleteView.as_view(), name='dossier-delete'),
+    path('dossier/<uuid:pk>/<str:action>/', views.valider_ou_rejeter_dossier, name='valider_ou_rejeter_dossier'),
 ]
+
+# urls.py

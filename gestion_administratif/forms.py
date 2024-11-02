@@ -2,6 +2,7 @@ from django.forms import forms, fields, widgets
 from django.forms.models import ModelForm, ModelChoiceField
 from django.db.models import Q
 
+
 from formset.collection import FormMixin, FormCollection
 from formset.widgets import (
     Selectize,
@@ -36,5 +37,10 @@ class DossierForm(FormMixin, ModelForm):
 )
     class Meta:
         model = Dossier
-        fields = ["enseignant","module"]
+        fields = ["file","enseignant","module"]
+        widgets = { 
+            "file" : UploadedFileInput(attrs={"max-size": 1024 * 1024*3}),
+            
+        }
+
 

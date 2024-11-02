@@ -1,7 +1,7 @@
 """
-URL configuration for educ_finance project.
+URL configuration for gestion_emplois project.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The urlpatterns list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.1/topics/http/urls/
 Examples:
 Function views
@@ -15,15 +15,36 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include 
-from educ_finance import views
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+from . import views
+from xauth import views as xauth_views
+
+
+MEDIA_ROOT = getattr (settings,"MEDIA_ROOT")
+MEDIA_URL = getattr (settings,"MEDIA_URL")
+
 
 urlpatterns = [
-    path("", views.CustomRedirectView.as_view(), name="redirect-index"),
-    path("home/", views.IndexTemplateView.as_view(), name="index-view"),
-    path("admin/", admin.site.urls),
+    path('', views.RedirectionView.as_view(),name='redirect'),
+    path('home/', views.IndexTemplateView.as_view(),name='index-view'),
+    path('admin/', admin.site.urls),
     path("import-export/", include("ie_app.urls")),
-    path("parameter/", include("parameter.urls")),
-    path("gestion_administratif/", include("gestion_administratif.urls")),
-    
-]
+    path('login/', xauth_views.CustomLoginView.as_view(), name='user-login'),
+    path('logout/', xauth_views.CustomLogoutView.as_view(), name='user-logout'),
+    path("signup/", xauth_views.User2CreateView.as_view(), name="user-signup"),
+    path(
+        "account-activation/<uuid:pk>/set-password/",
+        xauth_views.SetPasswordView.as_view(),
+        name="user-set-password",
+    ),
+    path(
+        "account-activation/<str:uidb64>/set-password/<str:token>",
+        xauth_views.SetPasswordView.as_view(),
+        name="user-set-password",
+    ),
+    path('auth/', include('xauth.urls')),
+    path('parameter/', include('parameter.urls')),   
+    path('management/', include('gestion_administratif.urls')), 
+] + static(MEDIA_URL, document_root=MEDIA_ROOT)

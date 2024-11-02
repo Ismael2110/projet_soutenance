@@ -1,4 +1,4 @@
-{% extends "models/list.html" %}
+{% extends "list-style.html" %}
 {% load icon %}
 {% load humanize %}
 {% load static %}
@@ -9,7 +9,6 @@
 <th>Matricule</th>
 <th>Contact</th>
 <th>Email</th>
-<th>Corps de troupe</th>
 <th>Rôle</th>
 {% endblock table-headers %}
 
@@ -19,7 +18,6 @@
 <td>{{object.matricule}}</td>
 <td>{{object.phone}}</td>
 <td>{{object.email}}</td>
-<td>{{object.structure|default:"-"}}</td>
 <td>{{object.get_role}}</td>
 {% endblock table-rows %}
 
@@ -27,35 +25,37 @@
 {% if deactivate_user %}
 {% if object.is_active %}
 <a>
-  <button type="button" class="btn btn-md btn-outline-secondary" disabled data-bs-toggle="popover"
-    data-bs-content="Compte déjà activé" data-bs-container="body">
-    {% icon "key" height=option_size width=option_size %}
-  </button>
+  <span class="text-secondary" data-bs-toggle="popover" data-bs-content="Compte déjà activé" 
+    data-bs-container="body" style="font-size: {{ option_size }}px;">
+    {% icon "key" %}
+  </span>
 </a>
 {% else %}
 <a href="{% url 'auth:user-send-key' object.id %}">
-  <button type="button" class="btn btn-md btn-outline-secondary" data-bs-toggle="popover"
-    data-bs-content="Activer le compte" data-bs-container="body" data-bs-placement="top">
-    {% icon "key" height=option_size width=option_size %}
-  </button>
+  <span class="text-secondary" data-bs-toggle="popover" data-bs-content="Activer le compte" 
+    data-bs-container="body" data-bs-placement="top" style="font-size: {{ option_size }}px;">
+    {% icon "key" %}
+  </span>
 </a>
+
 {% endif %}
 {% endif %}
 {% if can_assign %}
 {% if object.is_superuser or object.assign %}
 <a>
-  <button type="button" class="btn btn-md btn-outline-warning" disabled data-bs-toggle="popover"
-    data-bs-content="A déjà un rôle" data-bs-container="body" data-bs-placement="top">
-    {% icon "briefcase" height=option_size width=option_size %}
-  </button>
+  <span class="text-warning" data-bs-toggle="popover" data-bs-content="A déjà un rôle" 
+    data-bs-container="body" data-bs-placement="top" style="font-size: {{ option_size }}px;">
+    {% icon "briefcase" %}
+  </span>
 </a>
 {% else %}
 <a href="{% url 'auth:nomination-create' object.id %}">
-  <button type="button" class="btn btn-md btn-outline-warning" data-bs-toggle="popover" data-bs-content="Donner un rôle"
-    data-bs-container="body" data-bs-placement="top">
-    {% icon "briefcase" height=option_size width=option_size %}
-  </button>
+  <span class="text-warning" data-bs-toggle="popover" data-bs-content="Donner un rôle" 
+    data-bs-container="body" data-bs-placement="top" style="font-size: {{ option_size }}px;">
+    {% icon "briefcase" %}
+  </span>
 </a>
+
 {% endif %}
 {% endif %}
 {% endblock other-options %}

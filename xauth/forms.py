@@ -23,7 +23,7 @@ from formset.utils import FormsetErrorList
 from formset.renderers.bootstrap import FormRenderer
 from django.conf import settings
 
-from web.constants import MEDIUM_LENGTH, MIN_LENGTH, submit
+from educ_finance.constants import MEDIUM_LENGTH, MIN_LENGTH, submit
 from parameter import models as params_models
 
 from xauth.models import User, Assign, AccountActivationSecret

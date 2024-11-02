@@ -122,14 +122,26 @@
                             <div class="card-body">
                                 <div class="jumbotron text-center">
                                     {% block card-description %}
-                                    <img src="{% if object.image_url %}{{ object.image_url }}{% else %}{% static 'images/avatar1.png' %}{% endif %}" 
-                                        alt="Image description" class="img-fluid" 
-                                        style="max-width:50%; height:auto; border-radius: 10px;">
+                                    
                                     {% endblock card-description %}
                                 </div>
-                                
                             </div>
                         </div>
+                        <div class="mt-3">
+                            {% if dossier.file %}
+                                <a href="{{ dossier.file.url }}" target="_blank">
+                                    <button type="button" class="btn btn-md btn-outline-info" data-bs-toggle="popover"
+                                            data-bs-content="Visualiser le fichier" data-bs-container="body" data-bs-placement="top">
+                                        {% icon "eye" height="16px" width="16px" %} Visualiser le fichier
+                                    </button>
+                                </a>
+                            {% else %}
+                                <button type="button" class="btn btn-md btn-outline-info" disabled>
+                                    {% icon "eye" height="16px" width="16px" %} Aucun fichier disponible
+                                </button>
+                            {% endif %}
+                        </div>
+                        
                     </div>
 
                     <!-- Section détails et options -->
@@ -157,19 +169,42 @@
                                 </table>
                                 
                                 <div class="d-flex flex-row mb-5 justify-content-center btn-group">
+                                    {% if object.is_valided == Null %}
                                     <a href="{% url update_url object.slug|default:object.id %}">
                                         <button type="button" class="btn btn-md btn-outline-success" data-bs-toggle="popover"
                                                 data-bs-content="Modifier" data-bs-container="body" data-bs-placement="top">
                                             {% icon "edit" height="16px" width="16px" %} Modifier
                                         </button>
                                     </a>
-                                    
+                                    {% endif %}
+                                    {% if object.is_valided == Null %}
                                     <a href="{% url delete_url object.slug|default:object.id %}">
                                         <button type="button" class="btn btn-md btn-outline-danger" data-bs-toggle="popover"
                                                 data-bs-content="Supprimer" data-bs-container="body" data-bs-placement="top">
                                             {% icon "trash" height="16px" width="16px" %} Supprimer
                                         </button>
                                     </a>
+                                    {% endif %}
+                                    <!-- Bouton "Valider", affiché uniquement si le dossier n'est pas encore validé -->
+                                        {% if object.is_valided == Null %}
+                                        <a href="{% url 'gestion_administratif:valider_ou_rejeter_dossier' object.id 'valider' %}">
+                                            <button type="button" class="btn btn-md btn-outline-success" data-bs-toggle="popover"
+                                                    data-bs-content="Valider" data-bs-container="body" data-bs-placement="top">
+                                                {% icon "check" height="16px" width="16px" %} Valider Dossier
+                                            </button>
+                                        </a>
+                                        {% endif %}
+
+                                        <!-- Bouton "Réjeter", affiché uniquement si le dossier n'est pas encore validé -->
+                                        {% if object.is_valided == Null %}
+                                        <a href="{% url 'gestion_administratif:valider_ou_rejeter_dossier' object.id 'rejeter' %}">
+                                            <button type="button" class="btn btn-md btn-outline-danger" data-bs-toggle="popover"
+                                                    data-bs-content="Réjeter" data-bs-container="body" data-bs-placement="top">
+                                                {% icon "x" height="16px" width="16px" %} Réjeter Dossier
+                                            </button>
+                                        </a>
+                                        {% endif %}
+
                                 </div>
                                 
                                 

@@ -22,8 +22,7 @@ from formset.views import FormViewMixin, FormView
 
 
 # from web.mails import mail_password
-from web import views as cviews
-from web.decorators import superuser_required
+from educ_finance import views as cviews
 from xauth import forms
 from xauth import models
 
@@ -540,10 +539,12 @@ class GroupDeleteView(cviews.CustomDeleteView):
 # Public authentication
 
 
-class CustomLoginView(FormViewMixin, auth_views.LoginView):
+class CustomLoginView(auth_views.LoginView):
     template_name = "public/login.html"
-    # next_page = reverse_lazy("index-view")
     success_url = reverse_lazy("index-view")
+    def get_context_data(self, **kwargs):
+        print('azertyuio')
+        return super().get_context_data(**kwargs)
 
 
 class CustomLogoutView(auth_views.LogoutView):

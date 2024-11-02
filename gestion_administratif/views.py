@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from educ_finance.views import (
     CustomCreateView,
@@ -7,7 +8,7 @@ from educ_finance.views import (
     CustomListView,
     CustomUpdateView,
 )
-
+from formset.views import FileUploadMixin
 from gestion_administratif.models import Dossier
 from gestion_administratif.forms import DossierForm
 
@@ -27,7 +28,7 @@ class DossierListView(CustomListView):
         return context
 
 
-class DossierCreateView(CustomCreateView):
+class DossierCreateView(FileUploadMixin, CustomCreateView):
     model = Dossier
     form_class = DossierForm
     name = "dossier"
@@ -35,12 +36,13 @@ class DossierCreateView(CustomCreateView):
 
 
 
-class DossierUpdateView(CustomUpdateView):
+class DossierUpdateView(FileUploadMixin, CustomUpdateView):
     
     model = Dossier
     name = "dossier"
-    template_name = "update-dossier.html"
     form_class = DossierForm
+    template_name = "components/ufr_form.html"
+
     success_url = reverse_lazy("gestion_administratif:dossier-list")
 
 
@@ -67,7 +69,42 @@ class DossierDeleteView(CustomDeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = self.get_object()  # Utilisation de self.get_object()
-        context["card_title"] = f"Suppression du Dossier {object.label} - {object.sigle}"  # Affichage du sigle
+        context["card_title"] = f"Suppression de dossier"  # Affichage du sigle
         context["list_url"] = reverse_lazy("gestion_administratif:dossier-list")  # URL du retour
-        context["list_of"] = "Suppression d'un UFR"
+        context["list_of"] = "Suppression de dossier"
         return context
+
+
+# views.py
+
+
+# views.py
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib import messages
+from .models import Dossier  # Assurez-vous d'importer votre modèle Dossier
+
+def valider_ou_rejeter_dossier(request, pk, action):
+    dossier = get_object_or_404(Dossier, id=pk)
+
+    if action == "valider":
+        dossier.is_valided = 1  # 1 pour "Validé"
+        messages.success(request, "Le dossier a été validé avec succès.")
+    elif action == "rejeter":
+        if dossier.is_valided == 1:
+            messages.error(request, "Le dossier a déjà été validé et ne peut plus être rejeté.")
+        elif dossier.is_valided == 0:
+            messages.error(request, "Le dossier a déjà été rejeté.")
+        else:
+            dossier.is_valided = 0  # 0 pour "Non validé"
+            messages.success(request, "Le dossier a été rejeté avec succès.")
+    elif action == "en_cours":
+        if dossier.is_valided == 1:
+            messages.error(request, "Le dossier a déjà été validé et ne peut plus être marqué comme en cours.")
+        else:
+            dossier.is_valided = 2  # 2 pour "En cours"
+            messages.success(request, "Le dossier a été marqué comme en cours.")
+    else:
+        messages.error(request, "Action invalide.")
+    
+    dossier.save()
+    return redirect("gestion_administratif:dossier-list")

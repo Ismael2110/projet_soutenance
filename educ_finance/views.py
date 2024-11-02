@@ -27,14 +27,13 @@ from formset.views import (
 LIST_MAX_ROWS = getattr(settings, "LIST_MAX_ROWS", 10)
 
 
-class CustomRedirectView(RedirectView):
+class RedirectionView(RedirectView):
     url = "/home/"
 
 class IndexTemplateView(TemplateView):
 
     def get_template_names(self):
         return ["dashboard.html"]
-        
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
