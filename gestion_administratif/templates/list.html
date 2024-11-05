@@ -9,16 +9,11 @@
 
 {% block content %}
 
-<div class="container pt-3">
+<div class="container pt-3">     
     <div class="card">
-        <div class="my-2"> 
-            <div class="card">
-                <div class="card-header">
-                    <h2 class=" text-dark fw-bold m-0">{{ card_title }}</h2>
-                </div>
+            <div class="card-header text-center">
+                <h2 class="text-dark fw-bold m-0">{{ card_title }}</h2>
             </div>
-            
-        </div>
         <div class="card-body px-0 pb-2">
             <div class="d-flex flex-row mb-5 justify-content-between">
                 <div>
@@ -27,28 +22,16 @@
                 <div>
                     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-                    <div class="btn-group" role="group" aria-label="Basic outlined example" style="display: flex; gap: 10px;">
-                        <a href="{{ add_url }}" style="text-decoration: none;">
-                            <button type="button" class="btn btn-inverse-success" style="border: 2px solid #28a745; border-radius: 5px; padding: 10px 20px; background-color: #fff; color: #28a745;" 
-                                data-bs-toggle="tooltip" title="Ajouter un nouvel élément">
-                                <i class="fas fa-plus"></i> Nouveau
-                            </button>
+                    <div class="btn-group" role="group" aria-label="Action buttons">
+                        <a href="{{ add_url }}" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Ajouter un nouvel élément">
+                            <i class="fas fa-plus"></i> Nouveau
                         </a>
-
-                        <a href="/importer" style="text-decoration: none;">
-                            <button type="button" class="btn btn-inverse-primary" style="border: 2px solid #007bff; border-radius: 5px; padding: 10px 20px; background-color: #fff; color: #007bff;" 
-                                data-bs-toggle="tooltip" title="Importer des données">
-                                <i class="fas fa-arrow-down"></i> Importer
-                            </button>
+                        <a href="/importer" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Importer des données">
+                            <i class="fas fa-arrow-down"></i> Importer
                         </a>
-                        
-                        <a href="/exporter" style="text-decoration: none;">
-                            <button type="button" class="btn btn-inverse-primary" style="border: 2px solid #007bff; border-radius: 5px; padding: 10px 20px; background-color: #fff; color: #007bff;" 
-                                data-bs-toggle="tooltip" title="Exporter des données">
-                                <i class="fas fa-arrow-up"></i> Exporter
-                            </button>
+                        <a href="/exporter" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Exporter des données">
+                            <i class="fas fa-arrow-up"></i> Exporter
                         </a>
-                        
                     </div>
 
                     {% block toolbar %}
@@ -75,6 +58,7 @@
                                 <td class="center">
                                     <div class="btn-group" role="group" aria-label="buttons group" style="background: transparent;">
                                         {% block list-options %} 
+                                        </a>
                             
 
                                         {% block other-options %}{% endblock other-options %}

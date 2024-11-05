@@ -90,6 +90,10 @@
     <script type="text/javascript" src="{% static 'pages/dashboard.js' %}"></script>
     <script type="text/javascript" src="{% static 'pages/dashboard.js' %}"></script>
     <script src="{% static 'js/menu.min.js' %}"></script>
+
+    <script src="{% static 'js/common.min.js' %}" nonce="{{request.csp_nonce}}"></script>
+    <script src="{% static 'js/admin.js' %}" nonce="{{request.csp_nonce}}"></script>
+    <script src="{% static 'js/main.js' %}" nonce="{{request.csp_nonce}}"></script>
  <script>
  var $window = $(window);
  var nav = $('.fixed-button');

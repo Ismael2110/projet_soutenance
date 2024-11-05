@@ -8,6 +8,7 @@
     <th>Email</th>
     <th>Département associé</th>
     <th>Statut</th> <!-- Nouvelle colonne pour indiquer si l'enseignant est vacataire -->
+    <th>Grade</th>
     <th>Matricule</th> <!-- Colonne Matricule -->
 {% endblock table-headers %}
 
@@ -17,6 +18,7 @@
     <td>{{ object.email }}</td>
     <td>{{ object.departement }}</td>
     <td>{% if object.is_vacataire %}Vacataire{% else %}Enseignant{% endif %}</td> <!-- Affiche "Vacataire" si is_vacataire est True -->
+    <td>{{ object.grade }}</td>
     <td>
         {% if not object.is_vacataire %}
             {{ object.matricule }}

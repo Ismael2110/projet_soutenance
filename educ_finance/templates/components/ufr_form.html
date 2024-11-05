@@ -23,12 +23,18 @@
 {% endblock breadcrumb %}
 
 {% block content %}
-<div class="card mb-5">
-	<div class="card-header">
-		<h2>{{card_title}}</h2>
-		{% block more-info %}{% endblock more-info %}
-	</div>
-	<div class="card-body">
+<div class="container pt-3">
+	<div class="card">
+		<div class="my-2"> 
+			<div class="card">
+				<div class="card-header">
+					<h2 class=" text-dark fw-bold m-0">{{ card_title }}</h2>
+				</div>
+			</div>
+			
+		</div>
+		<div class="card-body">
+		
 		<div>
 			
 			<django-formset endpoint="{{request.path}}" csrf-token="{{csrf_token}}"
@@ -51,7 +57,8 @@
                 </div>
 				
 				
-			</django-formset>
+				</django-formset>
+			</div>
 		</div>
 	</div>
 </div>

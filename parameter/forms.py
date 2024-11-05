@@ -66,13 +66,14 @@ class ModuleForm(FormMixin, ModelForm):
         fields = ["code","credit","volume","label","filiere", "description"]
         
         
-class EnseignantForm(ModelForm):  # Utilisation correcte de forms.ModelForm
-    default_renderer = default_renderer
 
+class EnseignantForm(ModelForm):
+    default_renderer = default_renderer
     class Meta:
         model = Enseignant
-        fields = ['nom', 'prenom', 'email', 'departement', 'ufr', 'matricule', 'is_vacataire']
-    
+        fields = ['nom', 'prenom', 'email', 'departement', 'ufr', 'matricule', 'is_vacataire', 'grade']
+        
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['matricule'].required = False 
+        super(EnseignantForm, self).__init__(*args, **kwargs)
+        # Exemple : rendre le champ matricule optionnel
+        self.fields['matricule'].required = False

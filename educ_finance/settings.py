@@ -86,6 +86,7 @@ INSTALLED_APPS = [
     "parameter.apps.ParameterConfig",
     "ie_app.apps.IeAppConfig",
     "gestion_administratif",
+    "gestion_finance",
     
 ]
 

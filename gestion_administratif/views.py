@@ -25,6 +25,9 @@ class DossierListView(CustomListView):
         context["can_delete"] = False
         context["can_add"] = True
         context["add_url"] = reverse_lazy("gestion_administratif:dossier-create")
+        context["object_list_owner"] = Dossier.objects.filter(is_valided__isnull=True)
+        context["object_list_processed"] = Dossier.objects.filter(is_valided__isnull=False)
+        
         return context
 
 
@@ -108,3 +111,10 @@ def valider_ou_rejeter_dossier(request, pk, action):
     
     dossier.save()
     return redirect("gestion_administratif:dossier-list")
+
+
+def my_view(request):
+    context = {
+        'is_gestion_administratif_active': request.path.startswith('/gestion_administratif/'),
+    }
+    return render(request, 'list.html', context)

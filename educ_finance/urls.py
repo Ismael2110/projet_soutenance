@@ -47,4 +47,5 @@ urlpatterns = [
     path('auth/', include('xauth.urls')),
     path('parameter/', include('parameter.urls')),   
     path('management/', include('gestion_administratif.urls')), 
+    path('finance/', include('gestion_finance.urls')),
 ] + static(MEDIA_URL, document_root=MEDIA_ROOT)

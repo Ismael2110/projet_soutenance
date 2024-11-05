@@ -1,0 +1,49 @@
+
+{% extends "list.html" %}
+{% load icon %}
+{% load static %}
+
+{% block table-headers %}
+<th>Dossier</th>
+<th>Montant</th>
+<th>Date de paiement</th>
+<th>Référence</th>
+{% endblock table-headers %}
+
+{% block table-rows %}
+<td>{{ object.dossier }}</td>
+<td>{{ object.montant }}</td>
+<td>{{ object.date_paiement }}</td>
+<td>{{ object.reference }}</td>
+{% comment %} <td>
+    <a href="{% url 'gestion_finance:paiement_detail' paiement.id %}">Détails</a>
+    {% if paiement.statut == 'en_attente' %}
+        <a href="{% url 'gestion_finance:valider_paiement' paiement.id %}">Valider</a>
+    {% endif %}
+</td> {% endcomment %}
+
+{% endblock table-rows %}
+
+{% block other-options %}
+    <!-- Bouton "Voir les détails" toujours affiché -->
+    <a href="{% url info_url object.slug|default:object.id %}" class="icon-info me-2" 
+    data-bs-toggle="tooltip" title="Voir les détails" data-bs-container="body" data-bs-placement="top" 
+    style="border: none; background: none; font-size: 24px; color: #007bff; transition: color 0.3s;">
+        {% icon "info" %}
+    </a>
+
+    <!-- Affiche les boutons "Modifier" et "Supprimer" seulement si le statut est "En cours" -->
+    {% if object.is_valided is None %}
+        <a href="{% url update_url object.slug|default:object.id %}" class="icon-success me-2" 
+        data-bs-toggle="tooltip" title="Modifier" data-bs-container="body" data-bs-placement="top" 
+        style="border: none; background: none; font-size: 24px; color: #28a745; transition: color 0.3s;">
+            {% icon "edit" %}
+        </a>
+
+        <a href="{% url delete_url object.slug|default:object.id %}" class="icon-danger" 
+        data-bs-toggle="tooltip" title="Supprimer" data-bs-container="body" data-bs-placement="top" 
+        style="border: none; background: none; font-size: 24px; color: #dc3545; transition: color 0.3s;">
+            {% icon "trash" %}
+        </a>
+    {% endif %}
+{% endblock other-options %}

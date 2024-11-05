@@ -47,7 +47,7 @@ class UfrUpdateView(CustomUpdateView):
 class UfrDetailView(CustomDetailView):
     model = UFR
     name = "ufr"
-    template_name = "detail_ufr.html"
+    template_name = "detail-ufr.html"
     success_url = reverse_lazy("parameter:ufr-list")
     
     

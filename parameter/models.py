@@ -106,10 +106,12 @@ class Module(ParameterModel):  # Assurez-vous que cette classe hérite de models
 
 from django.db import models
 
+from django.db import models
+
 class Enseignant(CommonAbstractModel):
-    nom = models.CharField(max_length=100, verbose_name="Nom ")
+    nom = models.CharField(max_length=100, verbose_name="Nom")
     prenom = models.CharField(max_length=100, verbose_name="Prénom")
-    email = models.EmailField(unique=True, verbose_name="Email ")
+    email = models.EmailField(unique=True, verbose_name="Email")
     departement = models.ForeignKey(
         Departement,
         on_delete=models.SET_NULL,
@@ -125,7 +127,22 @@ class Enseignant(CommonAbstractModel):
         null=True
     )
     matricule = models.PositiveIntegerField(verbose_name="Numéro Matricule", null=True, blank=True)
-    is_vacataire = models.BooleanField(default=False, verbose_name="Est Vacataire")  # Nouveau champ
+    is_vacataire = models.BooleanField(default=False, verbose_name="Est Vacataire")  # Indicateur pour vacataire
+    
+    # Champ pour les grades avec des choix prédéfinis
+    GRADE_CHOICES = [
+        ('ingenieur', "Ingénieur"),
+        ('assistant', "Assistant"),
+        ('maitre_assistant', "Maître Assistant"),
+        ('maitre_conference', "Maître de Conférences"),
+        ('professeur', "Professeur Titulaire"),
+    ]
+    grade = models.CharField(
+        max_length=20,
+        choices=GRADE_CHOICES,
+        default='assistant',
+        verbose_name="Grade", null=True
+    )
 
     class Meta:
         ordering = ["nom"]
@@ -139,12 +156,11 @@ class Enseignant(CommonAbstractModel):
         ]
     
     def __str__(self):
-        return f"{self.nom} {self.prenom}"
-
-    def __str__(self):
-        return f"{self.prenom} {self.nom} ({self.departement})"
+        return f"{self.prenom} {self.nom} - {self.get_grade_display()} ({self.departement})"
 
     def get_name(self):
         return f"{self.prenom} {self.nom}"
 
-
+    def get_grade(self):
+        """Retourne le grade de l'enseignant en texte lisible."""
+        return self.get_grade_display()
