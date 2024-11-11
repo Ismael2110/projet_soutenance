@@ -3,7 +3,7 @@
 <style>
 /* Styles pour les icônes */
 .icon-link {
-    border-radius: 50%; /* Forme arrondie pour l'icône */
+    
     transition: all 0.3s ease; /* Transition douce */
     padding: 10px; /* Espacement autour de l'icône */
     font-size: 1.2rem; /* Taille de l'icône */
@@ -51,22 +51,19 @@
 
 <!-- Icônes avec actions -->
 {% if can_detail %}
-<a href="{% url info_url object.slug|default:object.id %}" class="icon-link icon-info me-2" data-bs-toggle="popover"
-   data-bs-content="Voir les détails" data-bs-container="body" data-bs-placement="top">
-    {% icon "info" height=option_size width=option_size %}
+<a href="{% url info_url object.slug|default:object.id %}" class="btn btn-outline-info btn-sm" data-bs-toggle="tooltip" title="Voir les détails">
+    {% icon "info" %}
 </a>
 {% endif %}
 
 {% if can_update %}
-<a href="{% url update_url object.slug|default:object.id %}" class="icon-link icon-success me-2" data-bs-toggle="popover"
-   data-bs-content="Modifier" data-bs-container="body" data-bs-placement="top">
-    {% icon "edit" height=option_size width=option_size %}
+<a href="{% url update_url object.slug|default:object.id %}" class="btn btn-outline-success btn-sm" data-bs-toggle="tooltip" title="Modifier">
+    {% icon "edit" %}
 </a>
 {% endif %}
 
 {% if can_delete %}
-<a href="{% url delete_url object.slug|default:object.id %}" class="icon-link icon-danger" data-bs-toggle="popover"
-   data-bs-content="Supprimer" data-bs-container="body" data-bs-placement="top">
-    {% icon "trash" height=option_size width=option_size %}
+<a href="{% url delete_url object.slug|default:object.id %}" class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Supprimer">
+    {% icon "trash" %}
 </a>
 {% endif %}

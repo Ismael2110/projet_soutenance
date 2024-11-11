@@ -9,7 +9,7 @@
 
 {% block content %}
 
-<div class="container pt-3">     
+<div class="container-fluid">     
     <div class="card">
             <div class="card-header text-center">
                 <h2 class="text-dark fw-bold m-0">{{ card_title }}</h2>
@@ -24,13 +24,13 @@
 
                     <div class="btn-group" role="group" aria-label="Action buttons">
                         <a href="{{ add_url }}" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Ajouter un nouvel élément">
-                            <i class="fas fa-plus"></i> Nouveau
+                            {% icon "plus-square" height=option_size width=option_size %} Nouveau
                         </a>
                         <a href="/importer" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Importer des données">
-                            <i class="fas fa-arrow-down"></i> Importer
+                            {% icon "upload" height=option_size width=option_size %} Importer
                         </a>
                         <a href="/exporter" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Exporter des données">
-                            <i class="fas fa-arrow-up"></i> Exporter
+                            {% icon "download" height=option_size width=option_size %} Exporter
                         </a>
                     </div>
 

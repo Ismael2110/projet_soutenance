@@ -1,5 +1,5 @@
-{% extends 'bases/base.html' %}
 {% load icon %}
+
 <div class="d-flex flex-row mb-4 align-items-center justify-content-between btn-group">
 
     {% if can_add %}
@@ -22,9 +22,9 @@
         {% else %}
             <!-- Single add option as link -->
             <div class="me-2">
-                <a href="{{ add_url }}" class="text-decoration-none text-primary" aria-label="Ajouter un nouvel élément" data-bs-toggle="popover" data-bs-content="Nouveau" data-bs-placement="top">
-                    {% icon "plus" height=option_size width=option_size %} Nouveau
-                </a>
+                <a href="{{ add_url }}" class="btn btn-outline-success" data-bs-toggle="tooltip" title="Ajouter un nouvel élément">
+                    {% icon "plus-square" height=option_size width=option_size %} Nouveau
+                    </a>
             </div>
         {% endif %}
     {% endif %}
@@ -32,7 +32,7 @@
     {% if can_export %}
         <!-- Export option as link -->
         <div class="me-2">
-            <a href="{{ export_url }}" class="text-decoration-none text-success" aria-label="Exporter le contenu" data-bs-toggle="popover" data-bs-content="Exporter" data-bs-placement="top">
+            <a href="/exporter" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Exporter des données">
                 {% icon "download" height=option_size width=option_size %} Exporter
             </a>
         </div>
@@ -50,7 +50,7 @@
     {% if can_import %}
         <!-- Import option as link -->
         <div class="me-2">
-            <a href="{{ import_url }}" class="text-decoration-none text-secondary" aria-label="Importer le contenu" data-bs-toggle="popover" data-bs-content="Importer" data-bs-placement="top">
+            <a href="/importer" class="btn btn-outline-primary" data-bs-toggle="tooltip" title="Importer des données">
                 {% icon "upload" height=option_size width=option_size %} Importer
             </a>
         </div>

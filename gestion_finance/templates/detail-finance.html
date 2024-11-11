@@ -83,7 +83,7 @@
 {% endblock title %}
 
 {% block content %}
-<div class="container pt-3">
+<div class="container-fluid">
     <div class="card">
         {% comment %} <div class="card-header">
             <h2>{{ card_title}}</h2>
@@ -105,8 +105,8 @@
                     <!-- Section principale avec titre et description -->
                     <div class="my-2"> 
                         <div class="card">
-                            <div class="card-header">
-                                <h2 class="text-dark fw-bold m-0 text-start">{{ card_title }}</h2> <!-- Modification ici -->
+                            <div class="card-header text-center">
+                                <h2 class="text-dark fw-bold m-0">{{ card_title }}</h2>
                             </div>
                         </div>
                         
@@ -127,7 +127,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-3">
+                        {% comment %} <div class="mt-3">
                             {% if dossier.file %}
                                 <a href="{{ dossier.file.url }}" target="_blank">
                                     <button type="button" class="btn btn-md btn-outline-info" data-bs-toggle="popover"
@@ -140,7 +140,7 @@
                                     {% icon "eye" height="16px" width="16px" %} Aucun fichier disponible
                                 </button>
                             {% endif %}
-                        </div>
+                        </div> {% endcomment %}
                         
                     </div>
 
@@ -195,7 +195,7 @@
                                         <a href="{% url 'gestion_administratif:valider_ou_rejeter_dossier' object.id 'valider' %}">
                                             <button type="button" class="btn btn-md btn-outline-success mx-1" data-bs-toggle="popover"
                                                     data-bs-content="Valider" data-bs-container="body" data-bs-placement="top">
-                                                {% icon "check" height="16px" width="16px" %} Valider Dossier
+                                                {% icon "check" height="16px" width="16px" %} Valider Paiement
                                             </button>
                                         </a>
                                     {% endif %}
@@ -204,7 +204,7 @@
                                         <a href="{% url 'gestion_administratif:valider_ou_rejeter_dossier' object.id 'rejeter' %}">
                                             <button type="button" class="btn btn-md btn-outline-danger mx-1" data-bs-toggle="popover"
                                                     data-bs-content="Réjeter" data-bs-container="body" data-bs-placement="top">
-                                                {% icon "x" height="16px" width="16px" %} Réjeter Dossier
+                                                {% icon "x" height="16px" width="16px" %} Réjeter Paiement
                                             </button>
                                         </a>
                                     {% endif %}
